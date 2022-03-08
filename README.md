@@ -2,7 +2,7 @@
 
 Hi 👋 Thanks for checking out Pluang's QA Test.
 
-For this challenge we would like you to create some automated tests for the provided application. This could be Selenium, Cypress, Cucumber or whatever framework you like. We currently use Cucumber but we're very open for you to use whatever you're comfortable with.
+For this challenge we would like you to create some automated tests for the provided application. This could be Selenium, Cypress, Cucumber or whatever framework you like. We currently use Gauge but we're very open for you to use whatever you're comfortable with.
 
 There are 3 sections to the application, a Home, List and Item screen. It's completely up to you whether you focus on one, two or all areas of the app, it all depends how extensive you wish to be. The automation tests which you add should check some of the important functionality of the app.
 
