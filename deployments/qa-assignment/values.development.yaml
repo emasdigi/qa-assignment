@@ -1,0 +1,64 @@
+replicaCount: 1
+
+namespace: development
+image:
+  repository: nginx
+  tag: stable
+  pullPolicy: IfNotPresent
+
+container:
+  port: 3000
+
+istio:
+  enabled: false
+  sidecar: true
+  virtualService:
+    gateways:
+      - "https-pluang"
+    hosts:
+      - "dev-newstag.pluang.org"
+
+service:
+  enabled: true
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: nginx
+  # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: qa-assignment.pluang.org
+      paths: [/]
+  tls:
+    - secretName: dev-tls
+      hosts:
+        - qa-assignment.pluang.org
+
+resources:
+   limits:
+     cpu: 300m
+     memory: 512Mi
+   requests:
+     cpu: 200m
+     memory: 256Mi
+
+hpa:
+  enabled: false
+  metrics:
+    cpu:
+      targetAverageUtilization: 50
+    memory:
+      targetAverageUtilization: 50
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+nodeSelector: 
+  kops.k8s.io/instancegroup: development-spot
+
+tolerations: []
+
+affinity: {}
