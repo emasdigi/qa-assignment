@@ -1,0 +1,23 @@
+---
+# Source: qa-assignment/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: qa-assignment
+  namespace: development
+  labels:
+    app.kubernetes.io/name: qa-assignment
+    helm.sh/chart: qa-assignment-0.1.0
+    app.kubernetes.io/instance: qa-assignment
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Tiller
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: qa-assignment
+    app.kubernetes.io/instance: qa-assignment

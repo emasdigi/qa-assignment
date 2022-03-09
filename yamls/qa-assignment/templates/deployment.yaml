@@ -1,0 +1,56 @@
+---
+# Source: qa-assignment/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: qa-assignment
+  namespace: development
+  labels:
+    app.kubernetes.io/name: qa-assignment
+    helm.sh/chart: qa-assignment-0.1.0
+    app.kubernetes.io/instance: qa-assignment
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Tiller
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: qa-assignment
+      app.kubernetes.io/instance: qa-assignment
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: qa-assignment
+        app.kubernetes.io/instance: qa-assignment
+      annotations:
+        sidecar.istio.io/inject: "true"
+    spec:
+      containers:
+        - name: qa-assignment
+          image: "411137332098.dkr.ecr.us-east-1.amazonaws.com/qa-assignment:1"
+          ports:
+            - name: http
+              containerPort: 3000
+              protocol: TCP
+          livenessProbe:
+            null
+            
+          readinessProbe:
+            null
+            
+          env:
+            null
+            
+          resources:
+            limits:
+              cpu: 300m
+              memory: 512Mi
+            requests:
+              cpu: 200m
+              memory: 256Mi
+          stdin: true
+          tty: true      
+            
+      nodeSelector:
+        kops.k8s.io/instancegroup: development-spot
+        
