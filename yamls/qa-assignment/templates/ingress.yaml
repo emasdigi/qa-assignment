@@ -1,0 +1,29 @@
+---
+# Source: qa-assignment/templates/ingress.yaml
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: qa-assignment
+  namespace: development
+  labels:
+    app.kubernetes.io/name: qa-assignment
+    helm.sh/chart: qa-assignment-0.1.0
+    app.kubernetes.io/instance: qa-assignment
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Tiller
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    
+spec:
+  tls:
+    - hosts:
+        - "qa-assignment.pluang.org"
+      secretName: dev-tls
+  rules:
+    - host: "qa-assignment.pluang.org"
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: qa-assignment
+              servicePort: http
